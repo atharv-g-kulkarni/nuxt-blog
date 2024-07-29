@@ -8,19 +8,6 @@
             <div class="pf-v5-c-form__group-control">
               <span class="pf-v5-c-form-control pf-m-required">
                 <input
-                  id="form-vertical-name"
-                  v-model="name"
-                  required
-                  type="text"
-                  name="form-vertical-name"
-                  placeholder="Name"
-                  class=""
-                />
-              </span>
-            </div>
-            <div class="pf-v5-c-form__group-control">
-              <span class="pf-v5-c-form-control pf-m-required">
-                <input
                   id="form-vertical-username"
                   v-model="username"
                   required
@@ -31,6 +18,20 @@
                 />
               </span>
             </div>
+            <div class="pf-v5-c-form__group-control">
+              <span class="pf-v5-c-form-control pf-m-required">
+                <input
+                  id="form-vertical-email"
+                  v-model="email"
+                  required
+                  type="text"
+                  name="form-vertical-name"
+                  placeholder="E-mail"
+                  class=""
+                />
+              </span>
+            </div>
+
             <div class="pf-v5-c-form__group-control">
               <span class="pf-v5-c-form-control pf-m-required">
                 <input
@@ -56,7 +57,9 @@
           </form>
         </div>
         <div class="pf-v5-l-flex__item">
-          <p>Already have an account? <NuxtLink to="/login">Login Here</NuxtLink></p>
+          <p>
+            Already have an account? <NuxtLink to="/login">Login Here</NuxtLink>
+          </p>
         </div>
       </div>
     </div>
@@ -65,15 +68,26 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
 
-const name = ref("");
 const username = ref("");
+const email = ref("");
 const password = ref("");
+const router = useRouter();
 
-const handleSubmit = () => {
-  console.log("Name:", name.value);
-  console.log("Username:", username.value);
-  console.log("Password:", password.value);
+const handleSubmit = async () => {
+  try {
+    const response = await axios.post("api/auth/signup", {
+      username: username.value,
+      email: email.value,
+      password: password.value,
+    });
+    console.log("Signup Successful", response.data);
+    router.push("/login");
+  } catch (error) {
+    console.log("Signup Failed", error.response.data);
+  }
 };
 </script>
 

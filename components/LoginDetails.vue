@@ -15,7 +15,7 @@
                   name="form-vertical-name"
                   placeholder="Username"
                   class=""
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -27,7 +27,7 @@
                   type="password"
                   name="form-vertical-password"
                   placeholder="Password"
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">
@@ -54,14 +54,29 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "~/stores/auth";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
 
 const username = ref("");
 const password = ref("");
+const router = useRouter();
+const authStore = useAuthStore();
 
-const handleSubmit = () => {
-  console.log("Username:", username.value);
-  console.log("Password:", password.value);
+const handleSubmit = async () => {
+  try {
+    const response = await axios.post("api/auth/login", {
+      username: username.value,
+      password: password.value,
+    });
+    console.log("Login Successful");
+    authStore.login(response.data.user);
+    localStorage.setItem("token", response.data.token);
+    router.push("/");
+  } catch (error) {
+    console.log("Login Failed", error.response?.data || error.message);
+  }
 };
 </script>
 

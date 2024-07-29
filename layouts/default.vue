@@ -5,10 +5,10 @@
         <div class="pf-v5-l-grid__item pf-m-1-col">
           <NuxtLink to="/"><h1>FridayBlog</h1></NuxtLink>
         </div>
-        <div class="pf-v5-l-grid__item pf-m-9-col">
+        <div class="pf-v5-l-grid__item pf-m-8-col">
           <input id="fname" placeholder="Search" type="text" />
         </div>
-        <div class="pf-v5-l-grid__item pf-m-2-col">
+        <div class="pf-v5-l-grid__item pf-m-3-col">
           <div
             class="pf-v5-l-flex pf-m-justify-content-flex-end pf-m-align-items-center"
           >
@@ -20,7 +20,21 @@
               <i class="fa fa-bell" />
             </div>
             <div class="pf-v5-l-flex__item menu-item">
-              <pf-avatar alt="Libbie Koscinski" size="md" />
+              <div class="pf-v5-l-flex">
+                <template v-if="!authStore.isLoggedIn">
+                  <div class="pf-v5-l-flex__item">
+                    <NuxtLink to="/login"><p>Login</p></NuxtLink>
+                  </div>
+                  <div class="pf-v5-l-flex__item">
+                    <NuxtLink to="/signup"><p>Signup</p></NuxtLink>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="pf-v5-l-flex__item" @click="handleLogout">
+                    <NuxtLink to="/"><p>Logout</p></NuxtLink>
+                  </div>
+                </template>
+              </div>
             </div>
           </div>
         </div>
@@ -32,7 +46,27 @@
 </template>
 
 <script setup>
-import "@patternfly/elements/pf-avatar/pf-avatar.js";
+import { useAuthStore } from "~/stores/auth";
+import { useRouter } from "#app";
+import axios from "axios";
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+definePageMeta({
+  middleware: ["auth"],
+});
+
+const handleLogout = async () => {
+  try {
+    await axios.post("/api/auth/logout");
+    authStore.logout();
+    localStorage.removeItem("token");
+    router.push("/");
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
 </script>
 
 <style scoped>
@@ -77,5 +111,9 @@ import "@patternfly/elements/pf-avatar/pf-avatar.js";
 
 .menu-item:hover {
   cursor: pointer;
+}
+
+.menu-item p {
+  color: #000000;
 }
 </style>
