@@ -41,7 +41,9 @@
       </div>
     </div>
 
-    <slot />
+    <div>
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -64,7 +66,7 @@ const handleLogout = async () => {
     localStorage.removeItem("token");
     router.push("/");
   } catch (error) {
-    console.error("Logout failed:", error);
+    console.error("Logout failed:", error.response?.data || error.message);
   }
 };
 </script>

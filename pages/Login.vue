@@ -8,7 +8,6 @@
         class="pf-v5-l-grid__item pf-m-6-col pf-m-12-row login-right-container"
       >
         <LoginDetails />
-        <!-- <SignUpDetails/> -->
       </div>
     </div>
   </div>
@@ -33,3 +32,4 @@
   align-items: center;
 }
 </style>
+

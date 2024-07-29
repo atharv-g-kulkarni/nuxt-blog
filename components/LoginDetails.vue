@@ -15,7 +15,7 @@
                   name="form-vertical-name"
                   placeholder="Username"
                   class=""
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -27,7 +27,7 @@
                   type="password"
                   name="form-vertical-password"
                   placeholder="Password"
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">
@@ -49,6 +49,9 @@
           <p>Need an account? <NuxtLink to="/signup">SignUp Here</NuxtLink></p>
         </div>
       </div>
+      <div v-if="errorMessage">
+        <TheAlert :error-message="errorMessage" />
+      </div>
     </div>
   </div>
 </template>
@@ -61,21 +64,23 @@ import axios from "axios";
 
 const username = ref("");
 const password = ref("");
+const errorMessage = ref("");
 const router = useRouter();
 const authStore = useAuthStore();
 
 const handleSubmit = async () => {
+  errorMessage.value = "";
   try {
     const response = await axios.post("api/auth/login", {
       username: username.value,
       password: password.value,
     });
-    console.log("Login Successful");
+
     authStore.login(response.data.user);
     localStorage.setItem("token", response.data.token);
     router.push("/");
   } catch (error) {
-    console.log("Login Failed", error.response?.data || error.message);
+    errorMessage.value = error?.response?.statusText || error?.message;
   }
 };
 </script>
@@ -86,7 +91,7 @@ const handleSubmit = async () => {
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   border-radius: 5px;
   padding: 30px;
-  height: 400px;
+  height: auto;
   width: 400px;
 }
 

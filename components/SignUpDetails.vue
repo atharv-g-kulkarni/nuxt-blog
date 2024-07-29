@@ -15,7 +15,7 @@
                   name="form-vertical-username"
                   placeholder="Username"
                   class=""
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -62,6 +62,9 @@
           </p>
         </div>
       </div>
+      <div v-if="errorMessage">
+        <TheAlert :error-message="errorMessage" />
+      </div>
     </div>
   </div>
 </template>
@@ -74,19 +77,20 @@ import { useRouter } from "vue-router";
 const username = ref("");
 const email = ref("");
 const password = ref("");
+const errorMessage = ref("");
 const router = useRouter();
 
 const handleSubmit = async () => {
+  errorMessage.value = "";
   try {
-    const response = await axios.post("api/auth/signup", {
+    await axios.post("api/auth/signup", {
       username: username.value,
       email: email.value,
       password: password.value,
     });
-    console.log("Signup Successful", response.data);
     router.push("/login");
   } catch (error) {
-    console.log("Signup Failed", error.response.data);
+    errorMessage.value = error?.response?.statusText || error?.message;
   }
 };
 </script>
@@ -97,7 +101,7 @@ const handleSubmit = async () => {
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   border-radius: 5px;
   padding: 30px;
-  height: 450px;
+  height: auto;
   width: 400px;
 }
 

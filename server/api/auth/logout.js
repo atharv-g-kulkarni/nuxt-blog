@@ -15,7 +15,6 @@ export default defineEventHandler(async (event) => {
       message: "Logout successful",
     };
   } catch (error) {
-    console.error("Logout error:", error);
     throw createError({
       statusCode: 500,
       statusMessage: "An error occurred during logout",

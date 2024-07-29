@@ -35,7 +35,6 @@ export default defineEventHandler(async (event) => {
       },
     };
   } catch (error) {
-    console.error("Signup error:", error);
     throw createError({
       statusCode: 500,
       statusMessage: "An error occurred during signup",

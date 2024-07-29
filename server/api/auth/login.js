@@ -46,10 +46,9 @@ export default defineEventHandler(async (event) => {
       },
     };
   } catch (error) {
-    console.error("Login error:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: "An error occurred during login",
+      statusMessage: "Login Failed",
     });
   }
 });

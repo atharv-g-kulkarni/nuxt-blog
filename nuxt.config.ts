@@ -14,6 +14,6 @@ export default defineNuxtConfig({
     JWT_SECRET: process.env.JWT_SECRET,
   },
   nitro: {
-    plugins: ["~/server/plugins/mongoConnection.js"],
+    plugins: ["~/server/plugins/dbconnection.js"],
   },
 });
