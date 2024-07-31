@@ -6,21 +6,26 @@ export default defineEventHandler(async (event) => {
   try {
     const id = event.context.params.id;
     const body = await readBody(event);
-    let { error } = BlogSchema.validate(body);
+    const { error } = BlogSchema.validate(body, {
+      abortEarly: true,
+      allowUnknown: true,
+    });
     if (error) {
-      throw createError({
-        message: error.message.replace(/"/g, ""),
+      return {
         statusCode: 400,
-        fatal: false,
-      });
+        statusMessage: error.message.replace(/"/g, ""),
+      };
     }
-    try {
-      await blogSchema.findByIdAndUpdate(id, body);
-      return { message: "blog updated successfully!" };
-    } catch (createError) {
-      console.log(createError.message);
-    }
-  } catch (e) {
-    console.log(e);
+    const response = await blogSchema.findByIdAndUpdate(id, body);
+    if (response)
+      return { statusCode: 200, statusMessage: "blog updated successfully!" };
+    return {
+      statusCode: 401,
+      statusMessage: "user not found",
+    };
+  } catch (error) {
+    return {
+      message: error.message,
+    };
   }
 });

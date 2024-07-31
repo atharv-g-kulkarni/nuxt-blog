@@ -16,6 +16,13 @@ const schema = new mongoose.Schema(
     },
     titleImage: {
       type: String,
+    },
+    createdBy: {
+      //later use this
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: "User",
+      //and remove blow part
+      type: String,
       required: true,
     },
   },

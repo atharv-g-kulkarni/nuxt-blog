@@ -5,21 +5,24 @@ import { BlogSchema } from "~/server/models/validation";
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
-    let { error } = BlogSchema.validate(body);
+    const { error } = BlogSchema.validate(body, { allowUnknown: true });
     if (error) {
-      throw createError({
-        message: error.message.replace(/"/g, ""),
+      return {
         statusCode: 400,
-        fatal: false,
-      });
+        statusMessage: error.message.replace(/"/g, ""),
+      };
     }
-    try {
-      await blogSchema.create(body);
-      return { message: "blog created successfully!" };
-    } catch (createError) {
-      console.log(createError.message);
-    }
-  } catch (e) {
-    console.log(e);
+    const response = await blogSchema.create(body);
+    if (response)
+      return { statusCode: 200, statusMessage: "blog created successfully!" };
+    else
+      return {
+        statusCode: 500,
+        statusMessage: "unable to create blog",
+      };
+  } catch (error) {
+    return {
+      statusMessage: error.message,
+    };
   }
 });
