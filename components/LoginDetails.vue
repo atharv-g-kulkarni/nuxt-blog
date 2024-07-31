@@ -38,12 +38,14 @@
                 >
                   Login
                 </button>
-                <NuxtLink to="/forgotpassword"><button
-                  class="pf-v5-c-button pf-m-tertiary forgot-password-button"
-                  type="submit"
+                <NuxtLink to="/forgotpassword"
+                  ><button
+                    class="pf-v5-c-button pf-m-tertiary forgot-password-button"
+                    type="submit"
+                  >
+                    Forgot Password
+                  </button></NuxtLink
                 >
-                  Forgot Password
-                </button></NuxtLink>
               </div>
             </div>
           </form>
@@ -85,7 +87,7 @@ const handleSubmit = async () => {
     localStorage.setItem("token", token);
     router.push("/");
   } catch (error) {
-    console.log(error)
+    console.log(error);
     errorMessage.value = error?.data?.message || error?.message;
   }
 };
@@ -97,7 +99,6 @@ const handleSubmit = async () => {
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   border-radius: 5px;
   padding: 30px;
-  height: auto;
   width: 400px;
 }
 
@@ -125,13 +126,13 @@ const handleSubmit = async () => {
   margin-top: 20px;
 }
 
-.forgot-password-button{
+.forgot-password-button {
   font-size: 17px;
   height: 50px;
   width: 155px;
 }
 
-.forgot-password-button:hover{
+.forgot-password-button:hover {
   background-color: #000;
   color: #fff;
 }

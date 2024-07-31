@@ -24,7 +24,7 @@
                   id="form-vertical-email"
                   v-model="email"
                   required
-                  type="text"
+                  type="email"
                   name="form-vertical-name"
                   placeholder="E-mail"
                   class=""

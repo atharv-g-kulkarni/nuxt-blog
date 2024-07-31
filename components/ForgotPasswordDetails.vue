@@ -42,7 +42,6 @@ import { ref } from "vue";
 
 const email = ref("");
 const errorMessage = ref("");
-// const router = useRouter();
 
 const handleSubmit = async () => {
   errorMessage.value = "";
@@ -53,13 +52,8 @@ const handleSubmit = async () => {
         email: email.value,
       },
     });
-    console.log("Password reset email sent successfully.");
   } catch (error) {
-    console.log(errorMessage)
-    console.error(
-      "Error sending password reset email:",
-      errorMessage.value = error?.data?.message || error?.message
-    );
+    errorMessage.value = error?.data?.message || error?.message;
   }
 };
 </script>
