@@ -12,12 +12,12 @@ export default defineEventHandler(async (event) => {
     });
 
     return {
-      message: "Logout successful",
+      statusMessage: "Logout successful",
     };
   } catch (error) {
-    throw createError({
+    throw {
       statusCode: 500,
       statusMessage: "An error occurred during logout",
-    });
+    };
   }
 });

@@ -11,17 +11,17 @@ export default defineEventHandler(async (event) => {
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      throw createError({
+      throw {
         statusCode: 401,
         statusMessage: "Invalid credentials",
-      });
+      };
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      throw createError({
+      throw {
         statusCode: 401,
         statusMessage: "Invalid credentials",
-      });
+      };
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -46,9 +46,9 @@ export default defineEventHandler(async (event) => {
       },
     };
   } catch (error) {
-    throw createError({
+    throw {
       statusCode: 500,
       statusMessage: "Login Failed",
-    });
+    };
   }
 });

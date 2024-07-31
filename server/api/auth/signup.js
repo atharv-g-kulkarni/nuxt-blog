@@ -9,10 +9,10 @@ export default defineEventHandler(async (event) => {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      throw createError({
+      throw {
         statusCode: 400,
         statusMessage: "User already exists",
-      });
+      };
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
     await user.save();
 
     return {
-      message: "User created successfully",
+      statusMessage: "User created successfully",
       user: {
         id: user._id,
         username: user.username,
@@ -35,9 +35,9 @@ export default defineEventHandler(async (event) => {
       },
     };
   } catch (error) {
-    throw createError({
+    throw {
       statusCode: 500,
       statusMessage: "An error occurred during signup",
-    });
+    };
   }
 });

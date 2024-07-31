@@ -1,46 +1,31 @@
 <template>
   <div>
-    <div class="sign-up-details-container">
+    <div class="reset-password-details-container">
       <div class="pf-v5-l-flex pf-m-column">
-        <div class="pf-v5-l-flex__item"><h1>Sign up</h1></div>
+        <div class="pf-v5-l-flex__item"><h1>Reset Password</h1></div>
         <div class="pf-v5-l-flex__item">
           <form class="pf-v5-c-form" @submit.prevent="handleSubmit">
             <div class="pf-v5-c-form__group-control">
               <span class="pf-v5-c-form-control pf-m-required">
                 <input
-                  id="form-vertical-username"
-                  v-model="username"
+                  id="new-password"
+                  v-model="newPassword"
                   required
-                  type="text"
-                  name="form-vertical-username"
-                  placeholder="Username"
-                  class=""
-                >
-              </span>
-            </div>
-            <div class="pf-v5-c-form__group-control">
-              <span class="pf-v5-c-form-control pf-m-required">
-                <input
-                  id="form-vertical-email"
-                  v-model="email"
-                  required
-                  type="text"
-                  name="form-vertical-name"
-                  placeholder="E-mail"
-                  class=""
+                  type="password"
+                  name="new-password"
+                  placeholder="Enter new password"
                 />
               </span>
             </div>
-
             <div class="pf-v5-c-form__group-control">
               <span class="pf-v5-c-form-control pf-m-required">
                 <input
-                  id="form-vertical-password"
-                  v-model="password"
+                  id="confirm-password"
+                  v-model="confirmPassword"
                   required
                   type="password"
-                  name="form-vertical-password"
-                  placeholder="Password"
+                  name="confirm-password"
+                  placeholder="Confirm new password"
                 />
               </span>
             </div>
@@ -50,16 +35,11 @@
                   class="pf-v5-c-button pf-m-primary submit-button"
                   type="submit"
                 >
-                  Sign up
+                  Submit
                 </button>
               </div>
             </div>
           </form>
-        </div>
-        <div class="pf-v5-l-flex__item">
-          <p>
-            Already have an account? <NuxtLink to="/login">Login Here</NuxtLink>
-          </p>
         </div>
       </div>
       <div v-if="errorMessage">
@@ -71,36 +51,42 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
-const username = ref("");
-const email = ref("");
-const password = ref("");
-const errorMessage = ref("");
+const route = useRoute();
 const router = useRouter();
+
+const newPassword = ref("");
+const confirmPassword = ref("");
+const errorMessage = ref("");
 
 const handleSubmit = async () => {
   errorMessage.value = "";
+  if (newPassword.value !== confirmPassword.value) {
+    errorMessage.value = "Passwords do not match.";
+    return;
+  }
+
   try {
-    await $fetch("api/auth/signup", {
+    const { message: responseMessage } = await $fetch("/api/auth/reset", {
       method: "POST",
       body: {
-        username: username.value,
-        email: email.value,
-        password: password.value,
+        token: route.params.token,
+        newPassword: newPassword.value,
       },
     });
+
+    errorMessage.value = responseMessage;
     router.push("/login");
   } catch (error) {
-    
-    errorMessage.value = error?.data?.message || error?.message;
-
+    errorMessage.value =
+      error?.data?.message || "An error occurred. Please try again.";
   }
 };
 </script>
 
 <style scoped>
-.sign-up-details-container {
+.reset-password-details-container {
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   border-radius: 5px;
@@ -109,7 +95,7 @@ const handleSubmit = async () => {
   width: 400px;
 }
 
-.sign-up-details-container h1 {
+.reset-password-details-container h1 {
   font-size: 40px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -128,7 +114,7 @@ const handleSubmit = async () => {
   color: #000;
 }
 
-.sign-up-details-container p {
+.reset-password-details-container p {
   text-align: center;
   margin-top: 20px;
 }

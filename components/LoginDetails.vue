@@ -15,7 +15,7 @@
                   name="form-vertical-name"
                   placeholder="Username"
                   class=""
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -27,7 +27,7 @@
                   type="password"
                   name="form-vertical-password"
                   placeholder="Password"
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">
@@ -38,9 +38,12 @@
                 >
                   Login
                 </button>
-                <button class="pf-v5-c-button pf-m-link">
+                <NuxtLink to="/forgotpassword"><button
+                  class="pf-v5-c-button pf-m-tertiary forgot-password-button"
+                  type="submit"
+                >
                   Forgot Password
-                </button>
+                </button></NuxtLink>
               </div>
             </div>
           </form>
@@ -60,7 +63,6 @@
 import { useAuthStore } from "~/stores/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
 
 const username = ref("");
 const password = ref("");
@@ -71,16 +73,20 @@ const authStore = useAuthStore();
 const handleSubmit = async () => {
   errorMessage.value = "";
   try {
-    const response = await axios.post("api/auth/login", {
-      username: username.value,
-      password: password.value,
+    const { user, token } = await $fetch("api/auth/login", {
+      method: "POST",
+      body: {
+        username: username.value,
+        password: password.value,
+      },
     });
 
-    authStore.login(response.data.user);
-    localStorage.setItem("token", response.data.token);
+    authStore.login(user);
+    localStorage.setItem("token", token);
     router.push("/");
   } catch (error) {
-    errorMessage.value = error?.response?.statusText || error?.message;
+    console.log(error)
+    errorMessage.value = error?.data?.message || error?.message;
   }
 };
 </script>
@@ -105,7 +111,7 @@ const handleSubmit = async () => {
   background-color: #000000;
   font-size: 20px;
   height: 50px;
-  width: 170px;
+  width: 155px;
 }
 
 .submit-button:hover {
@@ -117,5 +123,16 @@ const handleSubmit = async () => {
 .login-details-container p {
   text-align: center;
   margin-top: 20px;
+}
+
+.forgot-password-button{
+  font-size: 17px;
+  height: 50px;
+  width: 155px;
+}
+
+.forgot-password-button:hover{
+  background-color: #000;
+  color: #fff;
 }
 </style>
