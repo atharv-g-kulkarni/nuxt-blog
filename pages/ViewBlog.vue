@@ -8,7 +8,7 @@
           <rh-button
             variant="tertiary"
             class="edit-button"
-            @click="navigateEditPage"
+            @click="navigateToEditPage"
           >
             <i class="fa fa-pencil-alt" />
           </rh-button>
@@ -36,13 +36,12 @@
 </template>
 
 <script setup>
-import "@patternfly/patternfly/patternfly.css";
 import "@rhds/elements/rh-button/rh-button.js";
 const blogTitle = ref();
 const blogStrory = ref();
 const blogImage = ref();
 const router = useRouter();
-const id = "66ab3e7d1b5b64f968b976b3";
+const id = "66ab3efa1b5b64f968b976b9";
 $fetch(`/api/blogs/createblog/${id}`, {
   method: "GET",
 })
@@ -54,7 +53,7 @@ $fetch(`/api/blogs/createblog/${id}`, {
   .catch((error) => {
     console.log(error);
   });
-const navigateEditPage = () => {
+const navigateToEditPage = () => {
   router.push(`/createblog/${id}`);
 };
 </script>
@@ -70,11 +69,16 @@ const navigateEditPage = () => {
 .blog-detail-view {
   width: 50%;
   padding: 32px;
+  white-space: pre-wrap;
 }
 
 .blog-image {
   width: 100%;
   max-height: 300px;
+}
+
+.edit-button {
+  white-space: nowrap;
 }
 
 .edit-button::part(button) {

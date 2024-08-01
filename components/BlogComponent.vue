@@ -133,7 +133,6 @@
 </template>
 
 <script setup>
-import "@patternfly/patternfly/patternfly.css";
 import "@rhds/elements/rh-button/rh-button.js";
 const props = defineProps({
   id: String,
@@ -260,6 +259,7 @@ const deleteBlog = async (event) => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: -11;
 }
 
 .pf-v5-c-alert {
