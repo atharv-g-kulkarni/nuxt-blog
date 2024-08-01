@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="header-main-container">
-      <h1>Header</h1>
+    <Header />
+    <div>
+      <slot />
     </div>
-
-    <slot />
   </div>
 </template>
+
+<script setup></script>
+
+<style scoped></style>
