@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="pf-v5-l-grid pf-m-gutter">
       <div class="pf-v5-l-grid__item pf-m-6-col  login-left-container">
-        <img src="../assets/images/loginImage.avif" />
+        <img src="../assets/images/loginImage.jpg" />
       </div>
       <div
         class="pf-v5-l-grid__item pf-m-6-col  login-right-container"

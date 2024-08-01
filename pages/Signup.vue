@@ -2,7 +2,7 @@
     <div class="sign-up-container">
       <div class="pf-v5-l-grid pf-m-gutter">
         <div class="pf-v5-l-grid__item pf-m-6-col pf-m-12-row">
-          <img src="../assets/images/loginImage.avif" >
+          <img src="../assets/images/loginImage.jpg" >
         </div>
         <div
           class="pf-v5-l-grid__item pf-m-6-col pf-m-12-row sign-up-right-container"
