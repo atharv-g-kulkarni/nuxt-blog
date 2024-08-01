@@ -12,6 +12,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     MONGO_URI: process.env.MONGO_URI,
     JWT_SECRET: process.env.JWT_SECRET,
+    MAILTRAP_USERNAME: process.env.MAILTRAP_USERNAME,
+    MAILTRAP_PASSWORD: process.env.MAILTRAP_PASSWORD,
   },
   nitro: {
     plugins: ["~/server/plugins/dbconnection.js"],

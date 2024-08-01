@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { defineNitroPlugin } from "#imports";
 
-export default defineNitroPlugin(async (nitroApp) => {
+export default defineNitroPlugin(async () => {
     const config = useRuntimeConfig()
     try {
       await mongoose.connect(config.MONGO_URI)

@@ -8,6 +8,7 @@
             <div class="pf-v5-c-form__group-control">
               <span class="pf-v5-c-form-control pf-m-required">
                 <input
+                  :minlength="8"
                   id="form-vertical-username"
                   v-model="username"
                   required
@@ -35,6 +36,7 @@
             <div class="pf-v5-c-form__group-control">
               <span class="pf-v5-c-form-control pf-m-required">
                 <input
+                  :minlength="8"
                   id="form-vertical-password"
                   v-model="password"
                   required

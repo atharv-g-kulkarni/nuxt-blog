@@ -1,15 +1,11 @@
-// export const sendPasswordResetEmail = async (email, resetToken) => {
-//   console.log(`Sending password reset email to ${email} with reset link: http://localhost:3000/reset-password/${resetToken}`);
-// };
-
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: "sandbox.smtp.mailtrap.io",
   port: 2525,
   auth: {
-    user: "e4af32b0c0ba98",
-    pass: "26f7ee048051fc",
+    user: process.env.MAILTRAP_USERNAME,
+    pass: process.env.MAILTRAP_PASSWORD,
   },
 });
 
@@ -20,7 +16,8 @@ export const sendPasswordResetEmail = async (email, resetToken) => {
     from: "noreply@example.com",
     to: email,
     subject: "Password Reset Request",
-    text: `Please click the following link to reset your password: ${resetLink}`,
+    text: "Friday Blog Password Reset request mail",
+    html: `<p>Please click the following link to reset your password: <a href="${resetLink}">Reset Password</a></p>`
   };
 
   try {

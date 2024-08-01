@@ -14,7 +14,7 @@
                   type="email"
                   name="email"
                   placeholder="Enter your email"
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">

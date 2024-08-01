@@ -10,11 +10,12 @@
                 <input
                   id="new-password"
                   v-model="newPassword"
+                  :minlength="8"
                   required
                   type="password"
                   name="new-password"
                   placeholder="Enter new password"
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -22,11 +23,12 @@
                 <input
                   id="confirm-password"
                   v-model="confirmPassword"
+                  :minlength="8"
                   required
                   type="password"
                   name="confirm-password"
                   placeholder="Confirm new password"
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">

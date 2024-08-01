@@ -5,7 +5,7 @@
         <div class="pf-v5-l-flex__item"><i class="fa fa-plus" /></div>
         <div class="pf-v5-l-flex__item"><p>For you</p></div>
       </div>
-      <hr />
+      <hr>
       <div class="content-container">
         <HomePageCard />
         <HomePageCard />

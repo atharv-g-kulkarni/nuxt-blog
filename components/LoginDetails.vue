@@ -10,12 +10,13 @@
                 <input
                   id="form-vertical-name"
                   v-model="username"
+                  :minlength="8"
                   required
                   type="text"
                   name="form-vertical-name"
                   placeholder="Username"
                   class=""
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -23,11 +24,12 @@
                 <input
                   id="form-vertical-password"
                   v-model="password"
+                  :minlength="8"
                   required
                   type="password"
                   name="form-vertical-password"
                   placeholder="Password"
-                />
+                >
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">
