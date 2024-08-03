@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     if (existingUser) {
       throw {
         statusCode: 400,
-        statusMessage: "User already exists",
+        message: "User already exists",
       };
     }
 
@@ -27,7 +27,6 @@ export default defineEventHandler(async (event) => {
     await user.save();
 
     return {
-      statusMessage: "User created successfully",
       user: {
         id: user._id,
         username: user.username,
@@ -36,8 +35,8 @@ export default defineEventHandler(async (event) => {
     };
   } catch (error) {
     throw {
-      statusCode: 500,
-      statusMessage: "An error occurred during signup",
+      statusCode: error.statusCode || 500,
+      message: error.message || "An error occurred during signup",
     };
   }
 });

@@ -13,14 +13,14 @@ export default defineEventHandler(async (event) => {
     if (!user) {
       throw {
         statusCode: 401,
-        statusMessage: "Invalid credentials",
+        message: "User not Found",
       };
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       throw {
         statusCode: 401,
-        statusMessage: "Invalid credentials",
+        message: "Invalid credentials",
       };
     }
 
@@ -37,7 +37,6 @@ export default defineEventHandler(async (event) => {
     });
 
     return {
-      message: "Login successful",
       token,
       user: {
         id: user._id,
@@ -47,8 +46,8 @@ export default defineEventHandler(async (event) => {
     };
   } catch (error) {
     throw {
-      statusCode: 500,
-      statusMessage: "Login Failed",
+      status: "Failed",
+      message: error.message || "Login Failed",
     };
   }
 });

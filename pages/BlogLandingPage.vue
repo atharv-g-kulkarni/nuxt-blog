@@ -8,11 +8,6 @@
       <hr>
       <div class="content-container">
         <HomePageCard />
-        <HomePageCard />
-        <HomePageCard />
-        <HomePageCard />
-        <HomePageCard />
-        <HomePageCard />
       </div>
     </div>
   </div>

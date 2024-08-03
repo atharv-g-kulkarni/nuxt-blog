@@ -2,7 +2,7 @@
   <div>
     <div class="sign-up-details-container">
       <div class="pf-v5-l-flex pf-m-column">
-        <div class="pf-v5-l-flex__item"><h1>Sign up</h1></div>
+        <div class="pf-v5-l-flex__item"><h1>Sign-Up</h1></div>
         <div class="pf-v5-l-flex__item">
           <form class="pf-v5-c-form" @submit.prevent="handleSubmit">
             <div class="pf-v5-c-form__group-control">
@@ -16,7 +16,7 @@
                   name="form-vertical-username"
                   placeholder="Username"
                   class=""
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -58,7 +58,7 @@
             </div>
           </form>
         </div>
-        <div class="pf-v5-l-flex__item">
+        <div class="pf-v5-l-flex__item account-container">
           <p>
             Already have an account? <NuxtLink to="/login">Login Here</NuxtLink>
           </p>
@@ -94,9 +94,14 @@ const handleSubmit = async () => {
     });
     router.push("/login");
   } catch (error) {
-    
-    errorMessage.value = error?.data?.message || error?.message;
-
+    if (error.response) {
+      errorMessage.value = error.response._data.message;
+      setTimeout(() => {
+        errorMessage.value = false;
+      }, 3000);
+    } else {
+      errorMessage.value = "An unexpected error occurred. Please try again.";
+    }
   }
 };
 </script>
@@ -112,8 +117,9 @@ const handleSubmit = async () => {
 }
 
 .sign-up-details-container h1 {
+  font-family: "Red Hat Mono", monospace;
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 
@@ -133,5 +139,9 @@ const handleSubmit = async () => {
 .sign-up-details-container p {
   text-align: center;
   margin-top: 20px;
+}
+
+.account-container{
+  margin-bottom: 15px;
 }
 </style>

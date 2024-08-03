@@ -16,7 +16,7 @@
                   name="form-vertical-name"
                   placeholder="Username"
                   class=""
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -29,7 +29,7 @@
                   type="password"
                   name="form-vertical-password"
                   placeholder="Password"
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">
@@ -52,7 +52,7 @@
             </div>
           </form>
         </div>
-        <div class="pf-v5-l-flex__item">
+        <div class="pf-v5-l-flex__item account-container">
           <p>Need an account? <NuxtLink to="/signup">SignUp Here</NuxtLink></p>
         </div>
       </div>
@@ -70,7 +70,7 @@ import { useRouter } from "vue-router";
 
 const username = ref("");
 const password = ref("");
-const errorMessage = ref("");
+const errorMessage = ref(false);
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -89,8 +89,14 @@ const handleSubmit = async () => {
     localStorage.setItem("token", token);
     router.push("/");
   } catch (error) {
-    console.log(error);
-    errorMessage.value = error?.data?.message || error?.message;
+    if (error.response) {
+      errorMessage.value = error.response._data.message;
+      setTimeout(() => {
+        errorMessage.value = false;
+      }, 3000);
+    } else {
+      errorMessage.value = "An unexpected error occurred. Please try again.";
+    }
   }
 };
 </script>
@@ -105,8 +111,9 @@ const handleSubmit = async () => {
 }
 
 .login-details-container h1 {
+  font-family: "Red Hat Mono", monospace;
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 
@@ -137,5 +144,9 @@ const handleSubmit = async () => {
 .forgot-password-button:hover {
   background-color: #000;
   color: #fff;
+}
+
+.account-container{
+  margin-bottom: 15px;
 }
 </style>
