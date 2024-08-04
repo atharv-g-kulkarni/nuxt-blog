@@ -13,7 +13,4 @@ export default defineNuxtConfig({
   nitro: {
     plugins: ["~/server/plugins/dbconnection.js"],
   },
-  routeRules:{
-    '/**': { appMiddleware: ['auth'] }
-  }
 });

@@ -10,20 +10,7 @@
       </div>
       <p class="pf-v5-c-alert__title">
         <span class="pf-v5-screen-reader">Info alert:</span>
-        Upload image only
-      </p>
-    </div>
-    <div
-      v-show="!auth.isLoggedIn"
-      class="pf-v5-c-alert pf-m-info pf-m-inline"
-      aria-label="Inline information alert"
-    >
-      <div class="pf-v5-c-alert__icon">
-        <i class="fas fa-fw fa-info-circle" aria-hidden="true" />
-      </div>
-      <p class="pf-v5-c-alert__title">
-        <span class="pf-v5-screen-reader">Info alert:</span>
-        Login to create blogs
+        upload image only
       </p>
     </div>
     <div
@@ -53,7 +40,7 @@
       </p>
     </div>
   </div>
-  <div v-show="auth.isLoggedIn" class="pf-v5-c-content container">
+  <div class="pf-v5-c-content container">
     <div class="sub-container">
       <div v-show="currentTitle || !props.id" class="create-form-section">
         <form
@@ -147,13 +134,8 @@
 
 <script setup>
 import "@rhds/elements/rh-button/rh-button.js";
-import { useAuthStore } from "~/stores/auth.js";
-const auth = useAuthStore();
 const props = defineProps({
-  id: {
-    type:String,
-    default:""
-  },
+  id: String,
 });
 const router = useRouter();
 const currentImageSrc = ref(null);
