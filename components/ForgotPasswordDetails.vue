@@ -31,7 +31,9 @@
         </div>
       </div>
       <div v-if="errorMessage">
-        <TheAlert :error-message="errorMessage" />
+        <rh-alert v-if="errorMessage" state="success" variant="alternate">
+          <h3>{{ errorMessage }}</h3>
+        </rh-alert>
       </div>
     </div>
   </div>
@@ -57,7 +59,7 @@ const handleSubmit = async () => {
       errorMessage.value = error.response._data.message;
       setTimeout(() => {
         errorMessage.value = false;
-      }, 3000);
+      }, 5000);
     } else {
       errorMessage.value = "An unexpected error occurred. Please try again.";
     }
