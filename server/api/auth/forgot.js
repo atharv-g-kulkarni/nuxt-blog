@@ -8,7 +8,10 @@ export default defineEventHandler(async (event) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Error("User not found");
+      throw {
+        statusCode: 401,
+        message: "User not found"
+      }
     }
 
     const resetToken =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -17,14 +20,14 @@ export default defineEventHandler(async (event) => {
     await user.save();
 
     await sendPasswordResetEmail(email, resetToken);
-    return {
+    throw {
+      statuCode: 200,
       message: "Password reset email sent. Please check your inbox.",
     };
   } catch (error) {
-    console.error("Forgot password error:", error);
     throw {
-      statusCode: 500,
-      message: "An error occurred while processing your request.",
+      status: "Failed",
+      message: error.message || "An error occurred while processing your request.",
     };
   }
 });

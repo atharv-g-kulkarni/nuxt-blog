@@ -10,7 +10,7 @@
         <div
           class="pf-v5-l-grid__item pf-m-7-col pf-m-3-col-on-xs pf-m-3-col-on-sm pf-m-5-col-on-md pf-m-6-col-on-lg"
         >
-          <input id="fname" placeholder="Search" type="text" />
+          <input id="fname" placeholder="Search" type="text" >
           <i class="fa fa-search search-icon" />
         </div>
         <div
@@ -19,10 +19,12 @@
           <div
             class="pf-v5-l-flex pf-m-justify-content-flex-end pf-m-align-items-center"
           >
-            <div class="pf-v5-l-flex__item menu-item">
-              <i class="fa fa-pencil-alt" />
-              <p>Write</p>
-            </div>
+            <NuxtLink to="/createblog">
+              <div class="pf-v5-l-flex__item menu-item">
+                <i class="fa fa-pencil-alt" />
+                <p>Write</p>
+              </div></NuxtLink
+            >
             <div class="pf-v5-l-flex__item menu-item">
               <i class="fa fa-bell" />
             </div>
@@ -60,7 +62,9 @@
       </div>
     </div>
     <div v-if="errorMessage">
-      <TheAlert :error-message="errorMessage" />
+      <rh-alert v-if="errorMessage" state="success" variant="alternate">
+        <h3>{{ errorMessage }}</h3>
+      </rh-alert>
     </div>
   </div>
 </template>
@@ -86,6 +90,9 @@ const handleLogout = async () => {
     authStore.logout();
     localStorage.removeItem("token");
     errorMessage.value = "Logout Sccessful";
+    setTimeout(() => {
+      errorMessage.value = false;
+    }, 3000);
     router.push("/");
   } catch (error) {
     console.error("Logout failed:", error?.data?.message || error?.message);

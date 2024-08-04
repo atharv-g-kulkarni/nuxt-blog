@@ -14,7 +14,7 @@
                   type="email"
                   name="email"
                   placeholder="Enter your email"
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">
@@ -31,7 +31,9 @@
         </div>
       </div>
       <div v-if="errorMessage">
-        <TheAlert :error-message="errorMessage" />
+        <rh-alert v-if="errorMessage" state="success" variant="alternate">
+          <h3>{{ errorMessage }}</h3>
+        </rh-alert>
       </div>
     </div>
   </div>
@@ -53,7 +55,14 @@ const handleSubmit = async () => {
       },
     });
   } catch (error) {
-    errorMessage.value = error?.data?.message || error?.message;
+    if (error.response) {
+      errorMessage.value = error.response._data.message;
+      setTimeout(() => {
+        errorMessage.value = false;
+      }, 5000);
+    } else {
+      errorMessage.value = "An unexpected error occurred. Please try again.";
+    }
   }
 };
 </script>
@@ -69,8 +78,9 @@ const handleSubmit = async () => {
 }
 
 .forgot-password-details-container h1 {
+  font-family: "Red Hat Mono", monospace;
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 
@@ -79,6 +89,7 @@ const handleSubmit = async () => {
   font-size: 20px;
   height: 50px;
   width: 170px;
+  margin-bottom: 20px;
 }
 
 .submit-button:hover {

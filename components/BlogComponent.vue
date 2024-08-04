@@ -54,7 +54,7 @@
               <textarea
                 v-model="currentTitle"
                 :minlength="5"
-                :maxlength="100"
+                :maxlength="500"
                 class="blog-title"
                 name="textarea-standard"
                 aria-label="Standard textarea example"
@@ -68,7 +68,7 @@
               <textarea
                 v-model="currentStory"
                 :minlength="20"
-                :maxlength="200"
+                :maxlength="2000"
                 class="blog-story"
                 name="textarea-standard"
                 aria-label="Standard textarea example"
@@ -193,7 +193,7 @@ const navigateToHome = () => {
 };
 const formSubmit = async () => {
   const formdata = new FormData();
-  const headline = currentStory.value.substring(0, 15) + "...";
+  const headline = currentStory.value.substring(0,currentStory.value.length/2) + "...";
   formdata.append("title", currentTitle.value);
   formdata.append("headline", headline);
   formdata.append("story", currentStory.value);

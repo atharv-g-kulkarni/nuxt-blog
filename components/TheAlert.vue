@@ -2,9 +2,8 @@
   <div>
     <rh-alert
       v-if="errorMessage"
-      state="info"
+      state="danger"
       variant="alternate"
-      class="alert"
     >
       <h3>{{ errorMessage }}</h3>
     </rh-alert>
@@ -13,7 +12,7 @@
 
 <script setup>
 import "@rhds/elements/rh-alert/rh-alert.js";
-const props = defineProps({
+defineProps({
   errorMessage: {
     type: String,
     default: "",
@@ -22,7 +21,5 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.alert {
-  margin-top: 15px;
-}
+
 </style>

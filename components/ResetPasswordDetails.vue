@@ -15,7 +15,7 @@
                   type="password"
                   name="new-password"
                   placeholder="Enter new password"
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group-control">
@@ -28,7 +28,7 @@
                   type="password"
                   name="confirm-password"
                   placeholder="Confirm new password"
-                >
+                />
               </span>
             </div>
             <div class="pf-v5-c-form__group pf-m-action">
@@ -79,10 +79,18 @@ const handleSubmit = async () => {
     });
 
     errorMessage.value = responseMessage;
-    router.push("/login");
+    setTimeout(() => {
+      router.push("/login");
+    }, 5000);
   } catch (error) {
-    errorMessage.value =
-      error?.data?.message || "An error occurred. Please try again.";
+    if (error.response) {
+      errorMessage.value = error.response._data.message;
+      setTimeout(() => {
+        errorMessage.value = false;
+      }, 3000);
+    } else {
+      errorMessage.value = "An unexpected error occurred. Please try again.";
+    }
   }
 };
 </script>
@@ -98,8 +106,9 @@ const handleSubmit = async () => {
 }
 
 .reset-password-details-container h1 {
+  font-family: "Red Hat Mono", monospace;
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 

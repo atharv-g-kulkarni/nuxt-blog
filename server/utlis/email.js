@@ -17,7 +17,7 @@ export const sendPasswordResetEmail = async (email, resetToken) => {
     to: email,
     subject: "Password Reset Request",
     text: "Friday Blog Password Reset request mail",
-    html: `<p>Please click the following link to reset your password: <a href="${resetLink}">Reset Password</a></p>`
+    html: `<p>Please click the following link to reset your password: <a href="${resetLink}">Reset Password</a></p>`,
   };
 
   try {
