@@ -1,7 +1,7 @@
 <template>
   <div class="pf-v5-c-content container">
     <div v-show="blogImage" class="blog-detail-view">
-      <img :src="blogImage" alt="blog-image" class="blog-image">
+      <img :src="blogImage" alt="blog-image" class="blog-image" />
       <div class="blog-title-section pf-v5-l-flex">
         <h2>{{ blogTitle }}</h2>
         <div class="pf-v5-l-flex__item pf-m-align-right">
@@ -14,7 +14,7 @@
           </rh-button>
         </div>
       </div>
-      <hr>
+      <hr />
       <section>
         <p>
           {{ blogStrory }}
@@ -23,13 +23,13 @@
     </div>
     <div v-show="!blogImage" class="blog-detail-view">
       <div class="pf-v5-c-skeleton pf-m-height-lg"></div>
-      <br>
+      <br />
       <div class="pf-v5-c-skeleton"></div>
-      <br>
+      <br />
       <div class="pf-v5-c-skeleton pf-m-width-25"></div>
-      <br>
+      <br />
       <div class="pf-v5-c-skeleton pf-m-width-50"></div>
-      <br>
+      <br />
       <div class="pf-v5-c-skeleton pf-m-width-75"></div>
     </div>
   </div>
@@ -41,7 +41,10 @@ const blogTitle = ref();
 const blogStrory = ref();
 const blogImage = ref();
 const router = useRouter();
-const id = "66ab3efa1b5b64f968b976b9";
+const route = useRoute();
+  
+const id = route.params.id;
+
 $fetch(`/api/blogs/createblog/${id}`, {
   method: "GET",
 })

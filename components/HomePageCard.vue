@@ -1,24 +1,31 @@
 <template>
-  <div v-for="item in blogs" :key="item._id" class="card-main-container">
-    <p>
-      <span><i class="fa fa-user" /></span> {{ item.createdBy }}
-    </p>
-    <div class="pf-v5-l-grid">
-      <div class="pf-v5-l-grid__item pf-m-8-col blog-heading-container">
-        <h1>
-          {{  item.title }}
-        </h1>
-      </div>
-      <div class="pf-v5-l-grid__item pf-m-4-col pf-m-2-row">
-        <img :src="item.titleImage" alt="Blog image" />
-      </div>
-      <div class="pf-v5-l-grid__item pf-m-8-col blog-story-container">
+  <div>
+    <NuxtLink
+      v-for="item in blogs"
+      :key="item._id"
+      :to="`/viewblog/${item._id}`"
+      class="card-main-container"
+      ><div>
         <p>
-          {{ item.headline }}
+          <span><i class="fa fa-user" /></span> {{ item.createdBy }}
         </p>
-      </div>
-    </div>
-    <hr />
+        <div class="pf-v5-l-grid">
+          <div class="pf-v5-l-grid__item pf-m-8-col blog-heading-container">
+            <h1>
+              {{ item.title }}
+            </h1>
+          </div>
+          <div class="pf-v5-l-grid__item pf-m-4-col pf-m-2-row">
+            <img :src="item.titleImage" alt="Blog image" />
+          </div>
+          <div class="pf-v5-l-grid__item pf-m-8-col blog-story-container">
+            <p>
+              {{ item.headline }}
+            </p>
+          </div>
+        </div>
+        <hr /></div
+    ></NuxtLink>
   </div>
 </template>
 
@@ -37,13 +44,15 @@ const fetchBlogs = async () => {
   }
 };
 
-fetchBlogs()
+fetchBlogs();
 </script>
 
 <style scoped>
 .card-main-container {
   width: 100%;
   margin-top: 20px;
+  text-decoration: none;
+  color: #000;
 }
 
 .card-main-container img {
@@ -71,7 +80,7 @@ fetchBlogs()
   white-space: pre-wrap;
 }
 
-.blog-story-container{
+.blog-story-container {
   width: 95%;
   white-space: pre-wrap;
 }
