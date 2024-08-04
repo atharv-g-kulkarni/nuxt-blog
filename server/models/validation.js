@@ -5,5 +5,5 @@ export const BlogSchema = Joi.object({
   headline: Joi.string().max(1200).required(),
   story: Joi.string().min(20).max(2000).required(),
   titleImage: Joi.string(),
-  createdBy: Joi.string().required(),
+  createdBy: Joi.required(),
 });

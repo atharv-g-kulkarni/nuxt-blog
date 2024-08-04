@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
       };
     }
     const response = await blogSchema.findByIdAndUpdate(id, body);
+    console.log("hi")
     if (response)
       return { statusCode: 200, statusMessage: "blog updated successfully!" };
     return {

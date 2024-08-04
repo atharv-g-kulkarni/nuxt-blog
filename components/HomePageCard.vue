@@ -7,7 +7,7 @@
       class="card-main-container"
       ><div>
         <p>
-          <span><i class="fa fa-user" /></span> {{ item.createdBy }}
+          <span><i class="fa fa-user" /></span>{{item.createdBy}}
         </p>
         <div class="pf-v5-l-grid">
           <div class="pf-v5-l-grid__item pf-m-8-col blog-heading-container">
@@ -43,6 +43,17 @@ const fetchBlogs = async () => {
     error.value = "Failed to fetch blogs. Please try again later.";
   }
 };
+// const getCreatedBy = async (id) => {
+//   try {
+//     const response = await $fetch(`/api/getuser/${id}`, {
+//       method: "GET",
+//     });
+//     return response.username;
+//   } catch (err) {
+//     console.error(err);
+//     error.value = "Failed to fetch blogs. Please try again later.";
+//   }
+// };
 
 fetchBlogs();
 </script>

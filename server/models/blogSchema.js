@@ -18,12 +18,8 @@ const schema = new mongoose.Schema(
       type: String,
     },
     createdBy: {
-      //later use this
-      // type: mongoose.Schema.Types.ObjectId,
-      // ref: "User",
-      //and remove blow part
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {

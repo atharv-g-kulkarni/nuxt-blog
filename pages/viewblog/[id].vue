@@ -6,6 +6,7 @@
         <h2>{{ blogTitle }}</h2>
         <div class="pf-v5-l-flex__item pf-m-align-right">
           <rh-button
+            v-show="auth.isOwner"
             variant="tertiary"
             class="edit-button"
             @click="navigateToEditPage"
@@ -37,14 +38,13 @@
 
 <script setup>
 import "@rhds/elements/rh-button/rh-button.js";
+import { useAuthStore } from "~/stores/auth.js";
+const auth = useAuthStore();
 const blogTitle = ref();
 const blogStrory = ref();
 const blogImage = ref();
-const router = useRouter();
 const route = useRoute();
-  
 const id = route.params.id;
-
 $fetch(`/api/blogs/createblog/${id}`, {
   method: "GET",
 })
@@ -57,7 +57,7 @@ $fetch(`/api/blogs/createblog/${id}`, {
     console.log(error);
   });
 const navigateToEditPage = () => {
-  router.push(`/createblog/${id}`);
+  navigateTo(`/createblog/${id}`);
 };
 </script>
 
