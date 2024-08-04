@@ -6,6 +6,7 @@
         <h2>{{ blogTitle }}</h2>
         <div class="pf-v5-l-flex__item pf-m-align-right">
           <rh-button
+            v-show="auth.isLoggedIn"
             variant="tertiary"
             class="edit-button"
             @click="navigateToEditPage"
@@ -37,14 +38,20 @@
 
 <script setup>
 import "@rhds/elements/rh-button/rh-button.js";
+import { useAuthStore } from "~/stores/auth.js";
+const auth = useAuthStore();
 const blogTitle = ref();
 const blogStrory = ref();
 const blogImage = ref();
 const router = useRouter();
+<<<<<<< HEAD:pages/viewblog/[id].vue
 const route = useRoute();
   
 const id = route.params.id;
 
+=======
+const id = "66acc28fe17d1a55506d2786";
+>>>>>>> 680cc99 (added verification to all pages and components):pages/ViewBlog.vue
 $fetch(`/api/blogs/createblog/${id}`, {
   method: "GET",
 })
