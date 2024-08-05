@@ -70,7 +70,7 @@ const navigateToEditPage = () => {
 }
 
 .blog-detail-view {
-  width: 50%;
+  width: 70%;
   padding: 32px;
   white-space: pre-wrap;
 }
@@ -88,7 +88,7 @@ const navigateToEditPage = () => {
   --_tertiary-border-color: white;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 992px) {
   .blog-detail-view {
     width: 100%;
   }

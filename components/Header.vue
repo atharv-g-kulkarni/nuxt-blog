@@ -150,6 +150,7 @@ const handleLogout = async () => {
 
 .menu-item {
   text-align: center;
+  color: #000000;
 }
 
 .menu-item:hover {

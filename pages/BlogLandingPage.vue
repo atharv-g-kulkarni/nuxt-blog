@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="home-main-container">
       <div class="pf-v5-l-flex for-you-section">
         <div class="pf-v5-l-flex__item"><i class="fa fa-plus" /></div>
@@ -16,13 +16,19 @@
 <script setup></script>
 
 <style scoped>
+.container {
+  max-width: 1440px;
+  margin: auto;
+}
+
 .home-main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: auto;
   align-self: center;
-  width: 50%;
+  max-width: 70%;
+  padding: 32px
 }
 
 .home-main-container hr {
@@ -42,5 +48,11 @@
 
 .content-container {
   margin-top: 50px;
+}
+
+@media screen and (max-width: 992px) {
+  .home-main-container {
+    max-width: 100%;
+  }
 }
 </style>

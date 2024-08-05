@@ -64,6 +64,7 @@
 .card-main-container hr {
   border-color: #ffffff;
   width: 95%;
+  margin-bottom: 20px;
   margin-top: 20px;
 }
 
@@ -83,5 +84,11 @@
 .blog-story-container {
   width: 95%;
   white-space: pre-wrap;
+}
+
+@media screen and (max-width: 767px) {
+  .home-main-container {
+    max-width: 100%;
+  }
 }
 </style>

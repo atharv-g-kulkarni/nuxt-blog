@@ -308,7 +308,7 @@ const deleteBlog = async (event) => {
 }
 
 .create-form-section {
-  width: 50%;
+  width: 70%;
   padding: 32px;
 }
 
@@ -357,7 +357,7 @@ const deleteBlog = async (event) => {
   background-color: #1a8917;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 992px) {
   .create-form-section {
     width: 100%;
   }
