@@ -102,7 +102,7 @@
                 id="blog-image"
                 name="imageUpload"
                 type="file"
-                zl
+                accept="image/*"
                 @change="handleFileChange"
               />
             </div>
