@@ -92,7 +92,7 @@ const handleLogout = async () => {
     errorMessage.value = "Logout Sccessful";
     setTimeout(() => {
       errorMessage.value = false;
-    }, 3000);
+    }, 2000);
     router.push("/");
   } catch (error) {
     console.error("Logout failed:", error?.data?.message || error?.message);
@@ -150,6 +150,7 @@ const handleLogout = async () => {
 
 .menu-item {
   text-align: center;
+  color: #000000;
 }
 
 .menu-item:hover {

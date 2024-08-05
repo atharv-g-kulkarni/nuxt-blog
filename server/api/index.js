@@ -1,5 +1,5 @@
 import Blogs from "~/server/models/blogSchema";
-import { defineEventHandler } from "h3";
+import { defineEventHandler } from "#imports";
 
 export default defineEventHandler(async () => {
   try {

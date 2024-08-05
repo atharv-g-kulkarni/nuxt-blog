@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendPasswordResetEmail = async (email, resetToken) => {
-  const resetLink = `https://66ab67261d839e00088db44a--friday-blog.netlify.app/reset-password/${resetToken}`;
+  const resetLink = `https://friday-blog.netlify.app/reset-password/${resetToken}`;
 
   const mailOptions = {
     from: "noreply@example.com",

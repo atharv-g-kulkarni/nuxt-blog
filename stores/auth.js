@@ -4,6 +4,7 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     isLoggedIn: false,
     user: null,
+    isOwner: false,
   }),
   actions: {
     login(userData) {
@@ -14,5 +15,11 @@ export const useAuthStore = defineStore("auth", {
       this.isLoggedIn = false;
       this.user = null;
     },
+    setOwner() {
+      this.isOwner = true;
+    },
+    unsetOwner() {
+      this.isOwner = false;
+    }
   },
 });
