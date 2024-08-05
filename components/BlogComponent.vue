@@ -234,8 +234,16 @@ const navigateToHome = () => {
 };
 const formSubmit = async () => {
   const formdata = new FormData();
-  const headline =
-    currentStory.value.substring(0, currentStory.value.length / 2) + "...";
+  let headline;
+  let headlineArray =
+    currentStory.value.split("\n");
+  if(headlineArray.length<3){
+    headline =
+      currentStory.value.substring(0, currentStory.value.length / 2) + "...";
+  }
+  else {
+    headline = headlineArray[0]+"...";
+  }
   formdata.append("title", currentTitle.value);
   formdata.append("headline", headline);
   formdata.append("story", currentStory.value);

@@ -45,16 +45,15 @@
         </div>
       </div>
       <div v-if="errorMessage">
-        <TheAlert :error-message="errorMessage" />
+        <rh-alert v-if="errorMessage" state="success" variant="alternate">
+          <h3>{{ errorMessage }}</h3>
+        </rh-alert>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-
 const route = useRoute();
 const router = useRouter();
 
@@ -117,6 +116,7 @@ const handleSubmit = async () => {
   font-size: 20px;
   height: 50px;
   width: 170px;
+  margin-bottom: 15px;
 }
 
 .submit-button:hover {

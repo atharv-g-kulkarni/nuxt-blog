@@ -71,10 +71,9 @@
 
 <script setup>
 import { useAuthStore } from "~/stores/auth";
-import { useRouter } from "#app";
 
 const errorMessage = ref("");
-const router = useRouter();
+
 const authStore = useAuthStore();
 
 definePageMeta({
@@ -93,7 +92,7 @@ const handleLogout = async () => {
     setTimeout(() => {
       errorMessage.value = false;
     }, 2000);
-    router.push("/");
+    navigateTo("/")
   } catch (error) {
     console.error("Logout failed:", error?.data?.message || error?.message);
   }
