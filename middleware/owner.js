@@ -19,8 +19,8 @@ export default defineNuxtRouteMiddleware(async (to,from) => {
         authStore.unsetOwner();
       }
     }
-    else{
-      authStore.unsetOwner();
-    }
+    // else{
+    //   authStore.unsetOwner();
+    // }
   }
 });

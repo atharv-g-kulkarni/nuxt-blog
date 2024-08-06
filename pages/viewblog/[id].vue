@@ -3,7 +3,7 @@
     <div v-show="blogImage" class="blog-detail-view">
       <img :src="blogImage" alt="blog-image" class="blog-image" />
       <div class="blog-title-section pf-v5-l-flex">
-        <h2>{{ blogTitle }}</h2>
+        <h1>{{ blogTitle }}</h1>
         <div class="pf-v5-l-flex__item pf-m-align-right">
           <rh-button
             v-show="auth.isOwner"
@@ -73,6 +73,14 @@ const navigateToEditPage = () => {
   width: 70%;
   padding: 32px;
   white-space: pre-wrap;
+}
+
+.blog-detail-view h1{ 
+  margin:20px 0px;
+}
+
+.blog-detail-view p{ 
+  font-size:20px;
 }
 
 .blog-image {

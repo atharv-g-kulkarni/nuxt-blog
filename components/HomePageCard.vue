@@ -79,6 +79,7 @@
   line-height: 35px;
   margin-top: 5px;
   white-space: pre-wrap;
+  width: 95%;
 }
 
 .blog-story-container {
