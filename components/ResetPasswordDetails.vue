@@ -54,6 +54,7 @@
 </template>
 
 <script setup>
+import "@rhds/elements/rh-alert/rh-alert.js";
 const route = useRoute();
 const router = useRouter();
 
@@ -76,17 +77,11 @@ const handleSubmit = async () => {
         newPassword: newPassword.value,
       },
     });
-
     errorMessage.value = responseMessage;
-    setTimeout(() => {
-      router.push("/login");
-    }, 3000);
+    router.push("/login");
   } catch (error) {
     if (error.response) {
       errorMessage.value = error.response._data.message;
-      setTimeout(() => {
-        errorMessage.value = false;
-      }, 3000);
     } else {
       errorMessage.value = "An unexpected error occurred. Please try again.";
     }
