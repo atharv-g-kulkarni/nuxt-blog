@@ -69,7 +69,7 @@
           @submit.prevent="formSubmit"
         >
           <div>
-            <label for="blot-title-span"><h2>Title</h2></label>
+            <label for="blot-title-span"><h1>Title</h1></label>
             <span id="blot-title-span" class="pf-v5-c-form-control">
               <textarea
                 v-model="currentTitle"
@@ -83,7 +83,7 @@
             </span>
           </div>
           <div>
-            <label for="blog-story-span"><h2>Your Story...</h2></label>
+            <label for="blog-story-span"><h1>Your Story...</h1></label>
             <span id="blog-story-span" class="pf-v5-c-form-control">
               <textarea
                 v-model="currentStory"
@@ -97,6 +97,7 @@
             </span>
           </div>
           <div>
+            <h1>Select Image</h1>
             <div class="image-input-box">
               <input
                 id="blog-image"
@@ -110,7 +111,7 @@
               <img :src="currentImageSrc" alt="blog-image" />
             </div>
             <div v-else class="alt-preview-blog-image">
-              <h3>preview your image here</h3>
+              <h4>Image Preview</h4>
             </div>
           </div>
         </form>
@@ -234,8 +235,16 @@ const navigateToHome = () => {
 };
 const formSubmit = async () => {
   const formdata = new FormData();
-  const headline =
-    currentStory.value.substring(0, currentStory.value.length / 2) + "...";
+  let headline;
+  let headlineArray =
+    currentStory.value.split("\n");
+  if(headlineArray.length<3){
+    headline =
+      currentStory.value.substring(0, currentStory.value.length / 2) + "...";
+  }
+  else {
+    headline = headlineArray[0]+"...";
+  }
   formdata.append("title", currentTitle.value);
   formdata.append("headline", headline);
   formdata.append("story", currentStory.value);
@@ -310,6 +319,10 @@ const deleteBlog = async (event) => {
 .create-form-section {
   width: 70%;
   padding: 32px;
+}
+
+.create-form-section h1{
+  margin-bottom: 10px;
 }
 
 .create-blog-form > div {

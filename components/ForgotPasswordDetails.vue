@@ -40,8 +40,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
 const email = ref("");
 const errorMessage = ref("");
 

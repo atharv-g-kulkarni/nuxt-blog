@@ -72,14 +72,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-
 const username = ref("");
 const email = ref("");
 const password = ref("");
 const errorMessage = ref("");
-const router = useRouter();
 
 const handleSubmit = async () => {
   errorMessage.value = "";
@@ -92,7 +88,7 @@ const handleSubmit = async () => {
         password: password.value,
       },
     });
-    router.push("/login");
+    navigateTo("/login")
   } catch (error) {
     if (error.response) {
       errorMessage.value = error.response._data.message;

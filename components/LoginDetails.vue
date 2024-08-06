@@ -65,13 +65,12 @@
 
 <script setup>
 import { useAuthStore } from "~/stores/auth";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+
 
 const username = ref("");
 const password = ref("");
 const errorMessage = ref(false);
-const router = useRouter();
+
 const authStore = useAuthStore();
 
 const handleSubmit = async () => {
@@ -87,7 +86,7 @@ const handleSubmit = async () => {
 
     authStore.login(user);
     localStorage.setItem("token", token);
-    router.push("/");
+    navigateTo("/")
   } catch (error) {
     if (error.response) {
       errorMessage.value = error.response._data.message;
