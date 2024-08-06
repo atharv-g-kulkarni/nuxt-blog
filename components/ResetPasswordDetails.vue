@@ -80,7 +80,7 @@ const handleSubmit = async () => {
     errorMessage.value = responseMessage;
     setTimeout(() => {
       router.push("/login");
-    }, 5000);
+    }, 3000);
   } catch (error) {
     if (error.response) {
       errorMessage.value = error.response._data.message;
