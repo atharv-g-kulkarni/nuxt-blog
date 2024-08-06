@@ -56,7 +56,6 @@
 <script setup>
 import "@rhds/elements/rh-alert/rh-alert.js";
 const route = useRoute();
-const router = useRouter();
 
 const newPassword = ref("");
 const confirmPassword = ref("");
@@ -78,7 +77,10 @@ const handleSubmit = async () => {
       },
     });
     errorMessage.value = responseMessage;
-    router.push("/login");
+    setTimeout(() => {
+      errorMessage.value = false;
+    }, 2000);
+    navigateTo("/login");
   } catch (error) {
     if (error.response) {
       errorMessage.value = error.response._data.message;
