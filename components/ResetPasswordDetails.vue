@@ -82,11 +82,7 @@ const handleSubmit = async () => {
     }, 2000);
     navigateTo("/login");
   } catch (error) {
-    if (error.response) {
-      errorMessage.value = error.response._data.message;
-    } else {
-      errorMessage.value = "An unexpected error occurred. Please try again.";
-    }
+    console.log(error)
   }
 };
 </script>
