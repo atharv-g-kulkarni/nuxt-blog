@@ -26,13 +26,13 @@ export default defineEventHandler(async (event) => {
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    throw {
+    return {
       statuCode: 200,
       message:
         "Your password has been reset successfully. You can now log in with your new password.",
     };
   } catch (error) {
-    throw {
+    return {
       status: "Failed",
       message: error.message || "An error occurred while resetting your password.",
     };
