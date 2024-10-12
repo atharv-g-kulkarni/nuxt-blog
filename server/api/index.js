@@ -4,7 +4,8 @@ import { defineEventHandler } from "#imports";
 export default defineEventHandler(async () => {
   try {
     const blogs = await Blogs.find().sort({ createdAt: -1 });
-    return { blogs };
+    const totalBlogs = await Blogs.countDocuments();
+    return { blogs,totalBlogs };
   } catch (error) {
     console.error('Error fetching blogs:', error);
     event.res.statusCode = 500;

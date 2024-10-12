@@ -27,10 +27,12 @@
         <hr /></div
     ></NuxtLink>
   </div>
+  <ThePagination/>
 </template>
 
 <script setup>
   const blogs = ref([]);
+  const totalBlogs = ref(0);
   const getCreatedBy = async (id) => {
     const response = await $fetch(`/api/getuser/${id}`, {
         method: "GET",
@@ -41,6 +43,7 @@
   const response = await $fetch("/api", {
         method: "GET",
       });
+  totalBlogs.value = response?.totalBlogs;
   blogs.value = await Promise.all(response?.blogs?.map(async (blog)=>{
     blog.createdBy = await getCreatedBy(blog.createdBy);
     return blog;

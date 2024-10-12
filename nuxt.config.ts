@@ -9,6 +9,9 @@ export default defineNuxtConfig({
     JWT_SECRET: process.env.JWT_SECRET,
     MAILTRAP_USERNAME: process.env.MAILTRAP_USERNAME,
     MAILTRAP_PASSWORD: process.env.MAILTRAP_PASSWORD,
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
   },
   nitro: {
     plugins: ["~/server/plugins/dbconnection.js"],

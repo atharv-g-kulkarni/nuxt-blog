@@ -121,6 +121,7 @@
               v-if="auth.isOwner && props.id"
               type="submit"
               form="create-form"
+              :disabled="disableButton"
               >Update</rh-button
             >
             <rh-button
@@ -128,6 +129,7 @@
               type="button"
               danger
               @click="deleteBlog"
+              :disabled="disableButton"
               >Delete</rh-button
             >
             <rh-button
@@ -135,6 +137,7 @@
               type="submit"
               form="create-form"
               class="publish-btn"
+              :disabled="disableButton"
               >Publish</rh-button
             >
           </div>
@@ -164,6 +167,7 @@
 import "@rhds/elements/rh-button/rh-button.js";
 import { useAuthStore } from "~/stores/auth.js";
 import { jwtDecode } from "jwt-decode";
+import { sendChunks } from '~/composables/apiService';
 const auth = useAuthStore();
 const props = defineProps({
   id: {
@@ -178,6 +182,7 @@ const userId = ref();
 const alertMessage = ref(false);
 const statusMessage = ref();
 const errorMessage = ref();
+const disableButton = ref(false);
 if (auth.isLoggedIn && import.meta.client) {
   const token = localStorage.getItem("token");
   if (token) {
@@ -212,15 +217,15 @@ const autoCloseToast = () => {
   }, 1000);
 };
 const handleFileChange = async (event) => {
-  const reader = new FileReader();
   const selectedImage = event.target.files[0];
   const pattern = new RegExp("image/*");
   const typeResult = pattern.test(selectedImage.type);
+  const reader = new FileReader();
   if (typeResult) {
     reader.readAsDataURL(selectedImage);
-    reader.onloadend = () => {
+    reader.onloadend=()=>{
       currentImageSrc.value = reader.result;
-    };
+    };  
   } else {
     currentImageSrc.value = null;
     document.getElementById("blog-image").value = null;
@@ -231,9 +236,11 @@ const handleFileChange = async (event) => {
 const navigateToHome = () => {
   setTimeout(() => {
     navigateTo("/");
+    disableButton.value=false;
   }, 1000);
 };
 const formSubmit = async () => {
+  disableButton.value=true;
   const formdata = new FormData();
   let headline;
   let headlineArray =
@@ -245,10 +252,11 @@ const formSubmit = async () => {
   else {
     headline = headlineArray[0]+"...";
   }
+  const imageURL = await sendChunks(currentImageSrc.value);
   formdata.append("title", currentTitle.value);
   formdata.append("headline", headline);
   formdata.append("story", currentStory.value);
-  formdata.append("titleImage", currentImageSrc.value);
+  formdata.append("titleImage", imageURL);
   formdata.append("createdBy", userId.value);
   const formatedData = Object.fromEntries(formdata);
   try {
@@ -257,11 +265,13 @@ const formSubmit = async () => {
       response = await $fetch("/api/blogs/createblog", {
         method: "POST",
         body: formatedData,
+        referrerPolicy:"no-referrer"
       });
     } else {
       response = await $fetch(`/api/blogs/createblog/${props.id}`, {
         method: "PUT",
         body: formatedData,
+        referrerPolicy:"no-referrer"
       });
     }
     if (response?.statusCode === 200) {
@@ -277,6 +287,7 @@ const formSubmit = async () => {
 };
 const deleteBlog = async (event) => {
   event.preventDefault();
+  disableButton.value=true;
   try {
     const response = await $fetch(`/api/blogs/createblog/${props.id}`, {
       method: "DELETE",
