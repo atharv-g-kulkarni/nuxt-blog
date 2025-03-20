@@ -1,0 +1,60 @@
+name: Build and Push Image to GHCR with Podman
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_TAG: "v1.0"
+
+permissions:
+  contents: read
+  pages: write
+  packages: write
+  id-token: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    environment: Blog-secret
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Log in to GitHub Container Registry (GHCR)
+      - name: Log in to GHCR
+        uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      # Step 3: Build the Docker image using Podman
+      - name: Build Docker image with Podman
+        run: |
+          podman build --env JWT_SECRET=${{ secrets.JWT_SECRET }} \
+                       --env MAILTRAP_PASSWORD=${{ secrets.MAILTRAP_PASSWORD }} \
+                       --env MAILTRAP_USERNAME=${{ secrets.MAILTRAP_USERNAME }} \
+                       --env MONGO_URI=${{ secrets.MONGO_URI }} \
+                       --env CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }} \
+                       --env CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }} \
+                       --env CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }} \
+                       --ulimit nofile=65535:65535\
+                       -t nuxt-blog .
+
+      # Step 4: Tag the image with the appropriate tag
+      - name: Tag the image
+        run: |
+          podman tag nuxt-blog ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
+
+      # Step 5: Push the image to GitHub Container Registry (GHCR)
+      - name: Push image to GHCR
+        run: |
+          podman push ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
+
+      # Step 6: Output image URL for reference
+      - name: Output pushed image URL
+        run: echo "Image pushed to ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}"

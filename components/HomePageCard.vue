@@ -27,7 +27,6 @@
         <hr /></div
     ></NuxtLink>
   </div>
-  <ThePagination/>
 </template>
 
 <script setup>
